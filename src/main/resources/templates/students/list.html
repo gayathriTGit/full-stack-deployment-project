@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Students List</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Students List</h1>
+    </header>
+
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+    <div th:if="${errorMessage}" class="alert alert-error" th:text="${errorMessage}"></div>
+
+    <div class="actions">
+        <a th:href="@{/students/new}" class="btn btn-primary">Add New Student</a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(students)}" class="students">
+        <p>No books found in the library.</p>
+    </div>
+
+    <table th:if="${!#lists.isEmpty(students)}" class="students-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Major</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.id}"></td>
+            <td th:text="${student.firstName}"></td>
+            <td th:text="${student.lastName}"></td>
+            <td th:text="${student.email}"></td>
+            <td th:text="${student.age}"></td>
+            <td th:text="${student.major}"></td>
+            <td class="actions">
+                <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-small">Edit</a>
+                <a th:href="@{/students/delete/{id}(id=${student.id})}"
+                   class="btn btn-small btn-danger"
+                   onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
