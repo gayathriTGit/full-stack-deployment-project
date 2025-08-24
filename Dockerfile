@@ -8,5 +8,6 @@ RUN mvn clean package
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/src/main/resources/db/students_db.db students_db.db
 EXPOSE 9001
 ENTRYPOINT ["java", "-jar", "app.jar"]
