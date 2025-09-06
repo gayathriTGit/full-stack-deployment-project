@@ -15,7 +15,7 @@ pipeline {
             steps {
                 sh '''
                 docker version
-                docker rmi deployment-ec2:1.0 -f || true
+                docker rmi deployment-ec2:1.0 -f || true 
                 DOCKER_BUILDKIT=1 docker build -t deployment-ec2:1.0 -f Dockerfile .
                 '''
             }
