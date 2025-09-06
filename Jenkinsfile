@@ -4,7 +4,7 @@ pipeline {
     stages {
      
         stage('Checkout') {
-            steps {
+            steps { 
                 script {
                     git branch: 'main', url: 'https://github.com/gayathriTGit/full-stack-deployment-project.git'
                 }
