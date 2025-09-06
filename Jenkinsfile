@@ -6,7 +6,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    git branch: 'main', url: 'https://github.com/gayathriTGit/full-stack-deployment-project'
+                    git branch: 'main', url: 'https://github.com/gayathriTGit/full-stack-deployment-project.git'
                 }
             }
         }
@@ -16,7 +16,7 @@ pipeline {
                 sh '''
                 docker version
                 docker rmi deployment-ec2:1.0 -f || true 
-                DOCKER_BUILDKIT=1 docker build -t deployment-ec2:1.0 -f Dockerfile .
+                docker build -t deployment-ec2:1.0 -f Dockerfile .
                 '''
             }
         }
@@ -25,7 +25,7 @@ pipeline {
             steps {
                 sh '''                
                 docker rm -f deployment-ec2-container || true
-                docker run -d --name deployment-ec2-container -p 9090:9090 deployment-ec2:1.0
+                docker run -d --name deployment-ec2-container -p 9001:9001 deployment-ec2:1.0
                 '''
             }
         }
